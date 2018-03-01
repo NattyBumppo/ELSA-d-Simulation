@@ -19,10 +19,7 @@ In this screenshot, the *Chaser Camera* is showing a virtual camera image. *Rel.
 
 ## Sample Video
 
-This basic video shows what this project looks like in action:
-
-[![Video screenshot](https://img.youtube.com/vi/WW_zD3agx34/0.jpg)](https://youtu.be/WW_zD3agx34)
-
+[YouTube link](https://youtu.be/WW_zD3agx34)
 
 ## Dependencies
 
