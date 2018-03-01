@@ -3,19 +3,26 @@ ELSA-d-Simulation
 
 ## Developer
 
-Nat Guy <natguy@jpl.nasa.gov>
+Nat Guy (natguy@jpl.nasa.gov)
 
 ## Overview
 
 This project is an orbital rendezous visualization and simulation suite, with a flight simulation component and a ground system component, which talk together bidirectionally. The simulation renders two spacecraft with randomized initial torques and linear forces, which causes them to move slightly relative to each other. A simulated camera on the *Chaser* spacecraft produces an image of the *Target* spacecraft.
 
-This simulated camera image is sent over the network to a ground server, which processes this data and looks for a QR code marker. If this marker is seen, it uses the marker to estimate the position and attitude of the *Chaser* relative to the *Target*. The ground server then sends these estimates back to the flight/simulation component, which displays them in a dashboard. (This data could be imagined to be ingested by the flight computer, and perhaps fed into a PID controller which could correct the position and attitude using calculated thrusts with the propulsion system.)
+This simulated camera image is sent over the network to a ground server, which processes this data and looks for a QR code marker. If this marker is seen, it uses the marker to estimate the position and attitude of the *Chaser* relative to the *Target*. The ground server then sends these estimates back to the flight/simulation component, which displays them in a dashboard. (This data could be imagined to be ingested by the flight computer, and perhaps fed into a PID controller which could correct the position and attitude using calculated thrusts with the propulsion system.) The ground server also saves all of the images that it receives over the network.
 
 A screenshot of the flight simulation component is shown below:
 
 ![Flight simulation component](screenshot.png)
 
 In this screenshot, the *Chaser Camera* is showing a virtual camera image. *Rel. Pos.* and *Rel. Att.* are based on an analysis of this camera image by the ground system. The *Rangefinder Range* is calculated directly within the simulation component for comparison and validation of the results.
+
+## Sample Video
+
+This basic video shows what this project looks like in action:
+
+[![Video screenshot](https://img.youtube.com/vi/WW_zD3agx34/0.jpg)](https://youtu.be/WW_zD3agx34)
+
 
 ## Dependencies
 
@@ -45,10 +52,6 @@ This will launch a server which waits for image data from the *flight_and_sim* s
 The Unity project in the `flight_and_sim/Chaser` directory can be run within the Unity Editor, or built as an executable package first and then run. Make sure that you edit the `groundProcessingServerUrl` property of the `ImageProcessor` component in the Unity Editor in order to connect to the correct server.
 
 Once both the flight/simulation component and the ground component are running, you should see them communicate and notice that the position and attitude estimates made by the ground component are visible in the flight/simulation component dashboard.
-
-## Sample Video
-
-A basic video showing what this project looks like in action can be found [here](youtubelink).
 
 ## Background
 
