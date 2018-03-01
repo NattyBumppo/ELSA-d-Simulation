@@ -36,44 +36,19 @@ def get_state_estimate_from_point_locations(locations):
     expected_center = np.array([512, 512])
     near_distance = 0.3
     calibrated_frustum_height = 2.0 * calibrated_distance * np.tan(camera_fov * 0.5)
-    # calibrated_percentage_of_frustum_height = calibrated_edge_length_pixels / calibrated_frustum_height
-
 
     a = np.array(locations[0])
     b = np.array(locations[1])
     c = np.array(locations[2])
     d = np.array(locations[3])
 
-
-    # focal_length = 1024.0 / np.tan(camera_fov / 2.0)
-
-    # print 'Focal length: ' + str(focal_length)
-
     average_edge_length = np.average([np.linalg.norm(a-b), np.linalg.norm(b-c), np.linalg.norm(c-d), np.linalg.norm(d-a)])
-
-    # frustum_height_fraction = average_edge_length / 1024.0
-
-    # estimated_distance = 0.5 * calibrated_edge_length_real * focal_length / average_edge_length - near_distance
-
-    # estimated_distance = average_edge_length * 0.5 / np.tan(camera_fov / 2.0)
 
     estimated_frustum_height  = average_edge_length / (calibrated_edge_length_pixels / calibrated_frustum_height)
 
     estimated_distance = 8.0 / (estimated_frustum_height / np.tan(camera_fov * 0.5))
 
-    # estimated_distance =  calibrated_distance / average_edge_length * (calibrated_edge_length_real / calibrated_edge_length_pixels)
-
-
-    # scale = calibrated_edge_length_real / calibrated_edge_length_pixels
-    # world_distance = estimated_distance
-
     average_rotation_angle = np.average([angle_between(b-a, (0, 1)), angle_between(c-b, (1, 0)), angle_between(c-d, (0, 1)), angle_between(d-a, (1, 0))])
-
-    print 'Rotation angle: ' + str(np.rad2deg(average_rotation_angle))
-
-    print 'Edge length: ' + str(average_edge_length)
-
-    print 'Calculated distance: ' + str(estimated_distance)
 
     # Get center and use to calculate relative position
     center = np.average((a, b, c, d), 0)
@@ -84,8 +59,8 @@ def get_state_estimate_from_point_locations(locations):
     # Rotate y and z axes
     relative_position = (estimated_distance, relative_position_xy[1], -relative_position_xy[0])
 
-    print 'center: ' + str(center)
-    print 'relative_position: ' + str(relative_position)
+    # print 'center: ' + str(center)
+    # print 'relative_position: ' + str(relative_position)
     
     packed_state = pack_state(np.rad2deg(average_rotation_angle), relative_position)
 
@@ -99,7 +74,6 @@ def pack_state(x_rot, pos):
 
 def image_data_to_state_estimate(raw_bytes, request_id):
     scanner = zbar.ImageScanner()
-    # # scanner.parse_config('enable')
 
     img = Image.open(io.BytesIO(raw_bytes))
 
@@ -116,17 +90,9 @@ def image_data_to_state_estimate(raw_bytes, request_id):
     width, height = pil_img.size
     pil_bytes = pil_img.tobytes()
 
-    # Get file content
-    # raw_bytes = open('qr_code.png', 'rb').read()
-
-    # create a reader
-    # width = height = 1024
-    zImg = zbar.Image(width, height, 'Y800', pil_bytes)
-    
+    # Read QR code
+    zImg = zbar.Image(width, height, 'Y800', pil_bytes)    
     scanner.scan(zImg)
-
-    # extract results
-
 
     if len(zImg.symbols) > 0:
         # do something useful with results
@@ -140,5 +106,3 @@ def image_data_to_state_estimate(raw_bytes, request_id):
     else:
         print('No QR codes found!')
         return ''
-
-

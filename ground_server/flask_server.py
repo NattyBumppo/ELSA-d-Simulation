@@ -16,9 +16,6 @@ def main():
     @app.route('/new_chaser_image', methods = ['PUT'])
     def new_chaser_image():
         global request_count
-        # if request.method == 'PUT':
-            # print "new request from %s" % request.remote_addr
-
         if request.data:
             print "Received data of length %s" % len(request.data)
 
@@ -29,8 +26,6 @@ def main():
             return response
         else:
             return "ERROR"
-
-        
 
     app.run(host='0.0.0.0')
 
