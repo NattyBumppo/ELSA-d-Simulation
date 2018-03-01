@@ -15,7 +15,7 @@ A screenshot of the flight simulation component is shown below:
 
 ![Flight simulation component](screenshot.png)
 
-In this screenshot, the *Chaser Camera* is showing a virtual camera image. *Rel. Pos.* and *Rel. Att.* are based on an analysis of this camera image by the ground system. The *Rangefinder Range* is calculated directly within the simulation component for comparison and validation of the results.
+In this screenshot, the *Chaser Camera* is showing a virtual camera image. *Rel. Pos.* and *Rel. Att.* are based on an analysis of this camera image by the ground system. The *Rangefinder Range* is calculated directly within the simulation component for comparison and verification of the results.
 
 ## Sample Video
 
