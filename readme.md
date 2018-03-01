@@ -7,7 +7,7 @@ Nat Guy (natguy@jpl.nasa.gov)
 
 ## Overview
 
-This project is an orbital rendezous visualization and simulation suite, with a flight simulation component and a ground system component, which talk together bidirectionally. The simulation renders two spacecraft with randomized initial torques and linear forces, which causes them to move slightly relative to each other. A simulated camera on the *Chaser* spacecraft produces an image of the *Target* spacecraft.
+This project is an orbital rendezous visualization and simulation proof-of-concept, with a loosely coupled flight simulation component and a ground system component, which talk together over the network bidirectionally. The simulation renders two spacecraft with randomized initial torques and linear forces, which causes them to move slightly relative to each other. A simulated camera on the *Chaser* spacecraft produces an image of the *Target* spacecraft.
 
 This simulated camera image is sent over the network to a ground server, which processes this data and looks for a QR code marker. If this marker is seen, it uses the marker to estimate the position and attitude of the *Chaser* relative to the *Target*. The ground server then sends these estimates back to the flight/simulation component, which displays them in a dashboard. (This data could be imagined to be ingested by the flight computer, and perhaps fed into a PID controller which could correct the position and attitude using calculated thrusts with the propulsion system.) The ground server also saves all of the images that it receives over the network.
 
